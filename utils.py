@@ -16,7 +16,18 @@ class DataLoader:
         self.dataList=dataList
 
     def generator(self):
-        pass
+        while(1):
+            batch=np.random.choice(self.dataList,size=self.batchSize,replace=False)
+            images=[]
+            labels=[]
+            for b in batch:
+                im=imread(b)
+                images.append(im)
+                temp=np.load(b.replace(".jpg",".npy").astype(int)
+                np.place(temp,temp==255,2550)
+                labels.append(temp)
+            images=np.array(images)
+            yield (np.array(images)/255.).astype(np.float32),np.array(labels)
 
 def dataAugmentation(images,labels):
     newImages=[]
