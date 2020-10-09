@@ -1,4 +1,5 @@
 class config:
+    imageShape=(1024,1024,3)
     inputShape=(256,256,3)
     pretrainedModel=None
     classes=3
@@ -11,5 +12,5 @@ class config:
     lr=1e-3
     batchSize=16
     epoches=30
-
+    GaussianSize=9
     
