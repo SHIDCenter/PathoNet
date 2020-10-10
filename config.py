@@ -14,4 +14,5 @@ class Config:
         self.batchSize=16
         self.epoches=30
         self.GaussianSize=9
+        self.validationSplit=0.2
         self.trainDataPath=""    

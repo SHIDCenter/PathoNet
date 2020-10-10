@@ -72,15 +72,20 @@ def createGaussianLabel(imagePath,labelPath,inputShape,imageShape,GaussianSize):
         
     return guLabel
 
-def stepDecay(epoch):
-    step = 10
-    num =  epoch // step 
-    if num % 3 == 0:
-        lrate = 1e-3
-    elif num % 3 == 1:
-        lrate = 1e-4
-    else:
-        lrate = 1e-5
-    print('Learning rate for epoch {} is {}.'.format(epoch+1, lrate))
-    return np.float(lrate)
+class LrPolicy:
+    def __init__(self,lr):
+        self.lr=lr
+    def stepDecay(self,epoch):
+        step = 10
+        num =  epoch // step 
+        if epoch>=30:
+            lrate = self.lr/1000
+        elif num % 3 == 0:
+            lrate = self.lr
+        elif num % 3 == 1:
+            lrate = self.lr/100
+        else :
+            lrate = self.lr/1000
+        print('Learning rate for epoch {} is {}.'.format(epoch+1, lrate))
+        return np.float(lrate)
 
