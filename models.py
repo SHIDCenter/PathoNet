@@ -250,7 +250,7 @@ def _conv_bn_relu_x2(nb_filter, row, col, subsample = (1,1)):
         return act_b
     return f
 
-def FCRN_A(input_dim, classes=3):
+def FCRN_A(input_dim, classes=3, pretrained_weights = None):
     input_ = Input (shape = (input_dim))
 
     block1 = Conv2D(32, (3, 3),kernel_initializer = 'orthogonal', padding='same')(input_)
@@ -283,9 +283,11 @@ def FCRN_A(input_dim, classes=3):
     density_pred =  Conv2D(classes, 1, 1, bias = False, activation='linear',init='orthogonal',name='pred',border_mode='same')(block7)
 
     model = Model (input = input_, output = density_pred)
+    if(pretrained_weights):
+    	model.load_weights(pretrained_weights)
     return model
 
-def FCRN_B(input_dim, classes=3):
+def FCRN_B(input_dim, classes=3, pretrained_weights = None):
     input_ = Input (shape = (input_dim))
 
     block1 = Conv2D(32, (3, 3),kernel_initializer = 'orthogonal', padding='same')(input_)
@@ -313,9 +315,11 @@ def FCRN_B(input_dim, classes=3):
     act7 = Activation(activation = 'relu')(up7)
     density_pred =  Conv2D(classes, 1, 1, bias = False, activation='linear',init='orthogonal',name='pred',border_mode='same')(act7)
     model = Model (input = input_, output = density_pred)
+    if(pretrained_weights):
+    	model.load_weights(pretrained_weights)
     return model
 
-def PathoNet(pretrained_weights = None,input_size = (256,256,3), classes=3):
+def PathoNet(input_size = (256,256,3), classes=3, pretrained_weights = None):
     inputs = Input(input_size) 
 
     block1= Conv2D(16, 3, padding = 'same', kernel_initializer = 'orthogonal',kernel_regularizer= l2(5e-4), use_bias=False)(inputs)
@@ -627,3 +631,22 @@ def Deeplabv3(weights=None, input_tensor=None, input_shape=(256, 256, 3), classe
                                     cache_subdir='models')
         model.load_weights(weights_path, by_name=True)
     return model
+
+def modelCreator(modelName,inputShape,classes,weights=None):
+    if modelName==PathoNet:
+        model=PathoNet(input_size = inputShape, classes=classes,pretrained_weights = weights)
+    elif modelName=="FRRN_A":
+        model=FCRN_A(inputShape,classes=classes,pretrained_weights = weights)
+    elif modelName=="FCRN_B":
+        model=FCRN_B(inputShape,classes=classes,pretrained_weights = weights)
+    elif modelName=="Deeplab_xception":
+        Deeplabv3(weights=weights, input_shape=inputShape, classes=classes, backbone='xception',
+              OS=16, alpha=1., activation=None)
+    elif modelName=="Deeplab_mobilenet":
+        model=Deeplabv3(weights=weights, input_shape=inputShape, classes=classes, backbone='mobilenetv2',
+              OS=16, alpha=1., activation=None)
+    else:
+        raise ValueError('The `model` argument should be either '
+                         'PathoNet,FRRN_A,FCRN_B,Deeplab_xception or Deeplab_mobilenet')
+    return model
+    
