@@ -23,7 +23,7 @@ class DataLoader:
             for b in batch:
                 im=imread(b)
                 images.append(im)
-                temp=np.load(b.replace(".jpg",".npy").astype(int)
+                temp=np.load(b.replace(".jpg",".npy")).astype(int)
                 np.place(temp,temp==255,2550)
                 labels.append(temp)
             images=np.array(images)
@@ -71,4 +71,16 @@ def createGaussianLabel(imagePath,labelPath,inputShape,imageShape,GaussianSize):
             guLabel[max(int(x-math.floor(GaussianSize/2)),0):min(int(x+math.ceil(GaussianSize/2)),255),max(0,int(y-math.floor(GaussianSize/2))):min(int(y+math.ceil(GaussianSize/2)),255),2]=gua[math.floor(GaussianSize/2)-x_//2:math.floor(GaussianSize/2)+x_//2+x_%2,math.floor(GaussianSize/2)-y_//2:math.floor(GaussianSize/2)+y_//2+y_%2]
         
     return guLabel
+
+def stepDecay(epoch):
+    step = 10
+    num =  epoch // step 
+    if num % 3 == 0:
+        lrate = 1e-3
+    elif num % 3 == 1:
+        lrate = 1e-4
+    else:
+        lrate = 1e-5
+    print('Learning rate for epoch {} is {}.'.format(epoch+1, lrate))
+    return np.float(lrate)
 

@@ -1,8 +1,8 @@
 .DS_Store
-checkpoints/
-results/
-build/
-
+checkpoints/*
+results/*
+build/*
+__pycache__/
 # test-related
 .coverage
 .cache

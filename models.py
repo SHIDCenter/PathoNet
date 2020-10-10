@@ -3,11 +3,11 @@ import tensorflow as tf
 from keras import backend as K
 from keras.models import Model
 
-from keras.layers import Input,Add,add,concatenate,Activation,concatenate,
+from keras.layers import (Input,Add,add,concatenate,Activation,concatenate,
                         Concatenate,Dropout,BatchNormalization,Reshape,Permute,
                         Dense,UpSampling2D,Flatten,Lambda,Activation,Conv2D,
                         DepthwiseConv2D,ZeroPadding2D,GlobalAveragePooling2D,
-                        MaxPooling2D,AveragePooling2D,LeakyReLU,Conv2DTranspose
+                        MaxPooling2D,AveragePooling2D,LeakyReLU,Conv2DTranspose)
                         
 from keras.regularizers import l2
 from keras.utils.layer_utils import get_source_inputs

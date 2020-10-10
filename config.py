@@ -1,16 +1,17 @@
-class config:
-    imageShape=(1024,1024,3)
-    inputShape=(256,256,3)
-    pretrainedModel=None
-    classes=3
-    model="PathoNet" #PathoNet,FRRN_A,FCRN_B,Deeplab_xception,Deeplab_mobilenet
-    logPath="logs\\"
-    checkpointsPath="checkpoints\\"
-    data_path=""
-    loss=""
-    optimizer="adam"
-    lr=1e-3
-    batchSize=16
-    epoches=30
-    GaussianSize=9
-    
+class Config:
+    def __init__(self):
+        self.imageShape=(1024,1024,3)
+        self.inputShape=(256,256,3)
+        self.pretrainedModel=None
+        self.classes=3
+        self.model="PathoNet" #PathoNet,FRRN_A,FCRN_B,Deeplab_xception,Deeplab_mobilenet
+        self.logPath="logs/"
+        self.checkpointsPath="checkpoints/"
+        self.data_path=""
+        self.loss=""
+        self.optimizer="adam"
+        self.lr=1e-3
+        self.batchSize=16
+        self.epoches=30
+        self.GaussianSize=9
+        self.trainDataPath=""    
