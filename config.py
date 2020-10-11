@@ -6,7 +6,6 @@ class Config:
         self.classes=3
         self.model="PathoNet" #PathoNet,FRRN_A,FCRN_B,Deeplab_xception,Deeplab_mobilenet
         self.logPath="logs/"
-        self.checkpointsPath="checkpoints/"
         self.data_path=""
         self.loss="mse"
         self.optimizer="adam"
@@ -14,6 +13,6 @@ class Config:
         self.batchSize=16
         self.epoches=30
         self.validationSplit=0.2
-        self.trainDataPath="D:\git_test\dst"
+        self.trainDataPath=""
         self.thresholds=[65,160,155]
         self.guaMaxValue=2550    
