@@ -47,7 +47,7 @@ def dataAugmentation(images,labels):
         newLabels.append(np.rot90(labels[i],k=3))
     return np.array(newImages),np.array(newLabels)
 
-def createGaussianLabel(imagePath,labelPath,inputShape,imageShape,GaussianSize):
+def createGaussianLabel(labelPath,inputShape,imageShape,GaussianSize):
     x, y = np.meshgrid(np.linspace(-1,1,GaussianSize), np.linspace(-1,1,GaussianSize))
     d = np.sqrt(x*x+y*y)
     sigma, mu = 0.5, 0.0

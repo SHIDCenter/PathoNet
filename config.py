@@ -10,9 +10,8 @@ class Config:
         self.data_path=""
         self.loss=""
         self.optimizer="adam"
-        self.lr=1e-3
+        self.lr=1e-2
         self.batchSize=16
         self.epoches=30
-        self.GaussianSize=9
         self.validationSplit=0.2
         self.trainDataPath=""    
