@@ -37,8 +37,9 @@ def preprocess(args=None):
     args = parser.parse_args(args)
     jpgFiles = glob.glob(args.inputPath+'\\'+'*.jpg') 
     for f in  jpgFiles:
-        img=misc.imresize(misc.imread(f),args.outputsize)
-        label=createGaussianLabel(f.replace(".jpg",".json"),args.outputsize,img.shape,args.GaussianSize)
+        image=misc.imread(f)
+        img=misc.imresize(image,args.outputsize)
+        label=createGaussianLabel(f.replace(".jpg",".json"),args.outputsize,image.shape,args.GaussianSize)
         if args.augmentation:
             images,labels=dataAugmentation([img],[label])
             for i in range(len(images)):
