@@ -35,13 +35,15 @@ def predict(args=None):
     model=models.modelCreator(conf.model,conf.inputShape,conf.classes,weights=conf.pretrainedModel)
     img=imageio.imread(args.imagePath)
     img=(img/255.).astype(np.float32)
+    img=np.expand_dims(img,0)
     pred=model.predict(img)
     np.place(pred[:,:,0],pred[:,:,0]<conf.thresholds[0],0)
     np.place(pred[:,:,1],pred[:,:,1]<conf.thresholds[1],0)
     np.place(pred[:,:,2],pred[:,:,2]<conf.thresholds[2],0)
     np.place(pred,pred>0,255)
+    pred=np.squeeze(pred)
     cells=watershed(pred)
-    return cells
+    np.save(args.savePath,cells)
 
 def get_parser():
     parser = argparse.ArgumentParser('predict')
