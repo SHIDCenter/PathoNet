@@ -9,7 +9,7 @@ def get_parser():
     parser = argparse.ArgumentParser('preprocess')
     parser.add_argument('--inputPath', '-i', required=True)
     parser.add_argument('--outputPath', '-o', required=True)
-    parser.add_argument('--outputsize','-s', type=sizes, nargs=3, required=True)
+    parser.add_argument('--outputsize','-s', type=sizes, required=True)
     parser.add_argument("--augmentation", '-a',  type=str2bool, nargs='?',const=True, default=False)
     parser.add_argument("--GaussianSize", '-g',  type=int, default=9)
     return parser
@@ -27,10 +27,10 @@ def str2bool(v):
 
 def sizes(s):
     try:
-        x, y = map(int, s.split(','))
-        return (x, y)
+        x, y, c = map(int, s.split(','))
+        return (x, y, c)
     except:
-        raise argparse.ArgumentTypeError("size must be x,y")
+        raise argparse.ArgumentTypeError("size must be x,y,c")
 
 def preprocess(args=None):
     parser = get_parser()
@@ -42,7 +42,7 @@ def preprocess(args=None):
         if args.augmentation:
             images,labels=dataAugmentation([img],[label])
             for i in range(len(images)):
-                name=args.outputPath+(f.replace(".jpg","").split('\\')[-1])+"_"+str(i)
+                name=args.outputPath+'\\'+(f.replace(".jpg","").split('\\')[-1])+"_"+str(i)
                 misc.imsave(name+'.jpg',images[i]) 
                 np.save(name+'.npy',labels[i].astype(np.uint8))
         else:
