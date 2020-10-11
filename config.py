@@ -15,4 +15,5 @@ class Config:
         self.epoches=30
         self.validationSplit=0.2
         self.trainDataPath=""
-        self.thresholds=[65,160,155]    
+        self.thresholds=[65,160,155]
+        self.guaMaxValue=2550    
