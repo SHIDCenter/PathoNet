@@ -6,7 +6,7 @@ import cv2
 import models
 from  config import Config
 import imageio
-
+import argparse
 
 
 def Watershed(pred):
@@ -28,9 +28,12 @@ def Watershed(pred):
             cells.append([x,y,ch])
     return np.array(cells)
 
-def predict(conf : Config,image_path):
+def predict(args=None):
+    parser = get_parser()
+    args = parser.parse_args(args)
+    conf=Config()
     model=models.modelCreator(conf.model,conf.inputShape,conf.classes,weights=conf.pretrainedModel)
-    img=imageio.imread(image_path)
+    img=imageio.imread(args.imagePath)
     img=(img/255.).astype(np.float32)
     pred=model.predict(img)
     np.place(pred[:,:,0],pred[:,:,0]<conf.thresholds[0],0)
@@ -39,3 +42,13 @@ def predict(conf : Config,image_path):
     np.place(pred,pred>0,255)
     cells=Watershed(pred)
     return cells
+
+def get_parser():
+    parser = argparse.ArgumentParser('predict')
+    parser.add_argument('--imagePath', '-img', required=True)
+    parser.add_argument('--savePath', '-s', required=True)
+    return parser
+
+
+if __name__ == "__main__":
+   predict()

@@ -13,7 +13,8 @@ from datetime import datetime
 import os
 import json
 
-def train(conf: Config):
+def train():
+    conf=Config()
     time=datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
     trainString="%s_%s_%s_%s" % (conf.model,conf.optimizer,str(conf.lr),time)
     os.makedirs(conf.logPath+"/"+trainString)
@@ -43,3 +44,5 @@ def train(conf: Config):
                     callbacks = [model_checkpoint, change_lr,tbCallBack]
                     )
 
+if __name__ == "__main__":
+   train()
