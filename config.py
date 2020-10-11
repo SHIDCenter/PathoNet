@@ -8,12 +8,12 @@ class Config:
         self.logPath="logs/"
         self.checkpointsPath="checkpoints/"
         self.data_path=""
-        self.loss=""
+        self.loss="mse"
         self.optimizer="adam"
         self.lr=1e-2
         self.batchSize=16
         self.epoches=30
         self.validationSplit=0.2
-        self.trainDataPath=""
+        self.trainDataPath="D:\git_test\dst"
         self.thresholds=[65,160,155]
         self.guaMaxValue=2550    

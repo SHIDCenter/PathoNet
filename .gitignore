@@ -2,6 +2,8 @@
 checkpoints/*
 results/*
 build/*
+logs/*
+
 __pycache__/
 # test-related
 .coverage

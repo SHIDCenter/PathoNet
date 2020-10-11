@@ -633,7 +633,7 @@ def Deeplabv3(weights=None, input_tensor=None, input_shape=(256, 256, 3), classe
     return model
 
 def modelCreator(modelName,inputShape,classes,weights=None):
-    if modelName==PathoNet:
+    if modelName=="PathoNet":
         model=PathoNet(input_size = inputShape, classes=classes,pretrained_weights = weights)
     elif modelName=="FRRN_A":
         model=FCRN_A(inputShape,classes=classes,pretrained_weights = weights)

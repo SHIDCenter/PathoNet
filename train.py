@@ -22,7 +22,7 @@ def train():
         json.dump(conf.__dict__, f)
     print('Compiling model...')
     model_checkpoint = ModelCheckpoint(conf.logPath+"/"+trainString+'/Checkpoint-{epoch:02d}-{val_loss:.2f}.hdf5', monitor='val_loss', save_best_only=False)
-    change_lr = LearningRateScheduler(LrPolicy(Config.lr).stepDecay)
+    change_lr = LearningRateScheduler(LrPolicy(conf.lr).stepDecay)
     tbCallBack=TensorBoard(log_dir=conf.logPath+"/"+trainString+'/logs', histogram_freq=0,  write_graph=True, write_images=True)
     model=models.modelCreator(conf.model,conf.inputShape,conf.classes,conf.pretrainedModel)
     model.compile(optimizer = conf.optimizer, loss = conf.loss)
