@@ -49,7 +49,7 @@ Training and inference procedure commands goes here
 ### Qualitative Results
 
 <p align="center">    
-  <img  src="https://github.com/SHIDCenter/PathoNet/blob/master/doc/qual_res_LQ2.jpg">
+  <img  src="https://github.com/SHIDCenter/PathoNet/blob/master/doc/qual_res_LQ.jpg">
 </p>
 
 ## Questions
