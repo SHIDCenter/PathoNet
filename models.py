@@ -187,7 +187,7 @@ def _inverted_res_block(inputs, expansion, stride, alpha, filters, block_id, ski
 
     return x
 
-def Atrous_residual_block(y, nb_channels, _strides=(1, 1),t="e"):
+def residualDilatedInceptionModule(y, nb_channels, _strides=(1, 1),t="e"):
     if t=="d":
         y = Conv2D(nb_channels, kernel_size=(1, 1), strides=(1, 1),kernel_initializer = 'orthogonal',kernel_regularizer= l2(5e-4), padding='same', use_bias=False)(y)
         y = BatchNormalization()(y)
@@ -330,29 +330,29 @@ def PathoNet(input_size = (256,256,3), classes=3, pretrained_weights = None):
     block1 = LeakyReLU()(block1)
     pool1 = MaxPooling2D(pool_size=(2, 2))(block1)
 
-    block2= Atrous_residual_block(pool1,32,t="e")
+    block2= residualDilatedInceptionModule(pool1,32,t="e")
     pool2 = MaxPooling2D(pool_size=(2, 2))(block2)
 
-    block3= Atrous_residual_block(pool2,64,t="e")
+    block3= residualDilatedInceptionModule(pool2,64,t="e")
     pool3 = MaxPooling2D(pool_size=(2, 2))(block3)
 
-    block4= Atrous_residual_block(pool3,128,t="e")
+    block4= residualDilatedInceptionModule(pool3,128,t="e")
     pool4 = MaxPooling2D(pool_size=(2, 2))(block4)
     drop4 = Dropout(0.1)(pool4)
 
-    block5= Atrous_residual_block(drop4,256,t="e")
+    block5= residualDilatedInceptionModule(drop4,256,t="e")
     drop5 = Dropout(0.1)(block5)
 
-    up6 = Atrous_residual_block((UpSampling2D(size = (2,2))(drop5)),128,t="d")
+    up6 = residualDilatedInceptionModule((UpSampling2D(size = (2,2))(drop5)),128,t="d")
     merge6 = concatenate([block4,up6], axis = 3)
 
-    up7 = Atrous_residual_block((UpSampling2D(size = (2,2))(merge6)),64,t="d")
+    up7 = residualDilatedInceptionModule((UpSampling2D(size = (2,2))(merge6)),64,t="d")
     merge7 = concatenate([block3,up7], axis = 3)
 
-    up8 = Atrous_residual_block((UpSampling2D(size = (2,2))(merge7)),32,t="d")
+    up8 = residualDilatedInceptionModule((UpSampling2D(size = (2,2))(merge7)),32,t="d")
     merge8 = concatenate([block2,up8], axis = 3)
 
-    up9 = Atrous_residual_block((UpSampling2D(size = (2,2))(merge8)),16,t="d")
+    up9 = residualDilatedInceptionModule((UpSampling2D(size = (2,2))(merge8)),16,t="d")
     merge9 = concatenate([block1,up9], axis = 3)
 
     block9=Conv2D(16, 3, padding = 'same', kernel_initializer = 'orthogonal',kernel_regularizer= l2(5e-4), use_bias=False)(merge9)
