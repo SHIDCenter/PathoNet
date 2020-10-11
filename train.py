@@ -1,17 +1,17 @@
 from keras.callbacks import ModelCheckpoint,Callback,LearningRateScheduler,TensorBoard
+from keras.models import load_model
 import random
-import models
-from utils import DataLoader, LrPolicy
-from config import Config
 import numpy as np
 from scipy import misc
 import gc
 from keras.optimizers import Adam
 from imageio import imread
-from keras.models import load_model
 from datetime import datetime
 import os
 import json
+import models
+from utils import DataLoader, LrPolicy
+from config import Config
 
 def train():
     conf=Config()
