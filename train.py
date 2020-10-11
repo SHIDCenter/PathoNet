@@ -26,18 +26,18 @@ def train():
     tbCallBack=TensorBoard(log_dir=conf.logPath+"/"+trainString+'/logs', histogram_freq=0,  write_graph=True, write_images=True)
     model=models.modelCreator(conf.model,conf.inputShape,conf.classes,conf.pretrainedModel)
     model.compile(optimizer = conf.optimizer, loss = conf.loss)
-    data = [conf.logPath+"/"+trainString+"/"+f for f in os.listdir(conf.trainDataPath)]
+    data = [conf.trainDataPath+"/"+f for f in os.listdir(conf.trainDataPath) if '.jpg' in f]
     random.shuffle(data)
     thr=int(len(data)*conf.validationSplit)
     trainData=data[thr:]
     valData=data[:thr]
-    trainDataLoader=DataLoader(conf.batchSize,conf.inputShape,trainData)
-    validationDataLoader=DataLoader(conf.batchSize,conf.inputShape,valData)
+    trainDataLoader=DataLoader(conf.batchSize,conf.inputShape,trainData,conf.guaMaxValue)
+    validationDataLoader=DataLoader(conf.batchSize,conf.inputShape,valData,conf.guaMaxValue)
     print('Fitting model...')
-    model.fit_generator(generator=generator(batch_size),
-                    validation_data=generator(batch_size,"validation"),
-                    steps_per_epoch=len(train_data)//batch_size,
-                    validation_steps=len(validation_data)//batch_size,
+    model.fit_generator(generator=trainDataLoader.generator(),
+                    validation_data=validationDataLoader.generator(),
+                    steps_per_epoch=len(trainData)//conf.batchSize,
+                    validation_steps=len(valData)//conf.batchSize,
                     epochs=conf.epoches,
                     verbose=1,
                     initial_epoch=0,
