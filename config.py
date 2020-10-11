@@ -14,4 +14,5 @@ class Config:
         self.batchSize=16
         self.epoches=30
         self.validationSplit=0.2
-        self.trainDataPath=""    
+        self.trainDataPath=""
+        self.thresholds=[65,160,155]    
