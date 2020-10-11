@@ -3,6 +3,7 @@ import utils
 import glob
 from scipy import misc
 from utils import dataAugmentation,createGaussianLabel
+import numpy as np
 
 def get_parser():
     
