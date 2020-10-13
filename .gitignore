@@ -3,7 +3,7 @@ checkpoints/*
 results/*
 build/*
 logs/*
-pretrainedModels/*
+pretrainedmodels/*
 
 __pycache__/
 # test-related
