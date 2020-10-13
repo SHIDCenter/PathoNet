@@ -20,7 +20,7 @@
     "batchSize": 16,
     "epoches": 30,
     "validationSplit": 0.2,
-    "trainDataPath": "SHIDC-B-Ki-67/Train/",
+    "trainDataPath": "data/Train/",
     "thresholds": [
         120,
         180,

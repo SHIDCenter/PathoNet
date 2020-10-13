@@ -26,7 +26,7 @@ def read_labels(name,inputShape,imageShape):
 
 def get_parser():
     
-    parser = argparse.ArgumentParser('demo')
+    parser = argparse.ArgumentParser('eval')
     parser.add_argument('--inputPath', '-i', required=True)
     parser.add_argument('--configPath', '-c', required=True)
     return parser
