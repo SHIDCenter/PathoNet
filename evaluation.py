@@ -8,8 +8,10 @@ import numpy as np
 import argparse
 import json
 from scipy import misc
+import matplotlib.pyplot as plt
+from tabulate import tabulate
 
-def read_labels(name,inputShape=(256,256,3),imageShape=(1024,1024,3)):
+def read_labels(name,inputShape,imageShape):
     with open(name,'r') as f:
         temp = json.load(f)
         labels=[]
@@ -26,7 +28,6 @@ def get_parser():
     
     parser = argparse.ArgumentParser('demo')
     parser.add_argument('--inputPath', '-i', required=True)
-    parser.add_argument('--outputPath', '-o', required=True)
     parser.add_argument('--configPath', '-c', required=True)
     return parser
 
@@ -45,34 +46,33 @@ def metric(pred,label):
     return [TP,FP,FN]
 
 
-def eval():
-    #parser = get_parser()
-    #args = parser.parse_args(args)
-    conf=Config()
-    conf.weights="E:\\KI_67\\weights256\\PathoNetV13_S256_max2550\\Checkpoint-30-2115.18.hdf5"
 
-    #conf.load(args.configPath)
+def eval(args=None):
+    parser = get_parser()
+    args = parser.parse_args(args)
+    conf=Config()
+    conf.load(args.configPath)
     pipeline=Pipeline(conf) 
-    data = ["D:\\KI-67\\Upload\\Test"+"/"+f for f in os.listdir("D:\\KI-67\\Upload\\Test\\") if '.jpg' in f]
+    data = [args.inputPath+"/"+f for f in os.listdir(args.inputPath) if '.jpg' in f]
     res=np.zeros((len(data),3,3))
     for i,d in enumerate(data):
         img=imageio.imread(d)
-        labels=read_labels(d.replace(".jpg",".json")).reshape((-1,3))
+        labels=read_labels(d.replace(".jpg",".json"),conf.inputShape,conf.imageShape).reshape((-1,3))
         img=misc.imresize(img,conf.inputShape)
         pred=pipeline.predict(img)
-        for j,ch in enumerate(range(3)):
-            label=labels[np.argwhere(labels[:,2]==j)].reshape((-1,3))[:,:2].T
-            res[i,j,:]=metric(pred[np.argwhere(pred[:,2]==j)].reshape((-1,3))[:,:2],label)  
+        if len(pred!=0):
+            for j,ch in enumerate(range(3)):
+                label=labels[np.argwhere(labels[:,2]==j)].reshape((-1,3))[:,:2].T
+                res[i,j,:]=metric(pred[np.argwhere(pred[:,2]==j)].reshape((-1,3))[:,:2],label)
 
     pre=np.sum(res[...,0],axis=0)/(np.sum(res[...,0],axis=0)+np.sum(res[...,1],axis=0)+0.00000001)
     rec=np.sum(res[...,0],axis=0)/(np.sum(res[...,0],axis=0)+np.sum(res[...,2],axis=0)+0.00000001)
     F1=2*(pre*rec)/(pre+rec+0.00000001)
+    print(tabulate([['Immunopositive', pre[0],rec[0],F1[0]], ['Immunonegative',pre[1],rec[1],F1[1] ],['Lymphocyte',pre[2],rec[2],F1[2]]], headers=['Class', 'Prec.','Rec.','F1']))
 
 
+if __name__ == "__main__":
+   eval()
 
-eval()
-'''if __name__ == "__main__":
-   demo()
-'''
 
 

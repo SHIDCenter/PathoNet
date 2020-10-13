@@ -2,11 +2,11 @@ import json
 
 class Config:
     def __init__(self):
-        self.imageShape=(1024,1024,3)
+        self.imageShape=(1228,1228,3)
         self.inputShape=(256,256,3)
         self.pretrainedModel=None
         self.classes=3
-        self.model="Deeplab_mobilenet" #PathoNet,FRRN_A,FCRN_B,Deeplab_xception,Deeplab_mobilenet
+        self.model="PathoNet" #PathoNet,FRRN_A,FCRN_B,Deeplab_xception,Deeplab_mobilenet
         self.logPath="logs/"
         self.data_path=""
         self.loss="mse"

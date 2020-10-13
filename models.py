@@ -2,7 +2,6 @@ import numpy as np
 import tensorflow as tf
 from keras import backend as K
 from keras.models import Model
-from keras.utils import multi_gpu_model
 from keras.layers import (Input,Add,add,concatenate,Activation,concatenate,
                         Concatenate,Dropout,BatchNormalization,Reshape,Permute,
                         Dense,UpSampling2D,Flatten,Lambda,Activation,Conv2D,

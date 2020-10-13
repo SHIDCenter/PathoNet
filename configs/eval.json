@@ -9,7 +9,7 @@
         256,
         3
     ],
-    "pretrainedModel": null,
+    "pretrainedModel": "pretrainedModels/PathoNet.h5",
     "classes": 3,
     "model": "PathoNet",
     "logPath": "logs/",
