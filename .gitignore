@@ -1,9 +1,11 @@
 .DS_Store
-checkpoints/*
-results/*
-build/*
+data/*
 logs/*
 pretrainedmodels/*
+
+!data/.keep
+!logs/.keep
+!pretrainedmodels/.keep
 
 __pycache__/
 # test-related
