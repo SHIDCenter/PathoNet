@@ -13,13 +13,21 @@ import models
 from utils import DataLoader, LrPolicy
 from config import Config
 
-def train():
+def get_parser():
+    
+    parser = argparse.ArgumentParser('train')
+    parser.add_argument('--configPath', '-c', required=True)
+    return parser
+
+def train(args=None):
+    parser = get_parser()
+    args = parser.parse_args(args)
     conf=Config()
+    conf.load(args.configPath)
     time=datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
     trainString="%s_%s_%s_%s" % (conf.model,conf.optimizer,str(conf.lr),time)
     os.makedirs(conf.logPath+"/"+trainString)
-    with open(conf.logPath+"/"+trainString+'/config.json', 'w') as f:
-        json.dump(conf.__dict__, f)
+    conf.save(conf.logPath+"/"+trainString+'/config.json')
     print('Compiling model...')
     model_checkpoint = ModelCheckpoint(conf.logPath+"/"+trainString+'/Checkpoint-{epoch:02d}-{val_loss:.2f}.hdf5', monitor='val_loss', save_best_only=False)
     change_lr = LearningRateScheduler(LrPolicy(conf.lr).stepDecay)

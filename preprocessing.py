@@ -9,7 +9,7 @@ def get_parser():
     parser = argparse.ArgumentParser('preprocess')
     parser.add_argument('--inputPath', '-i', required=True)
     parser.add_argument('--outputPath', '-o', required=True)
-    parser.add_argument('--outputsize','-s', type=sizes, required=True)
+    parser.add_argument('--outputsize','-s', type=sizes,default=(256,256,3))
     parser.add_argument("--augmentation", '-a',  type=str2bool, nargs='?',const=True, default=False)
     parser.add_argument("--GaussianSize", '-g',  type=int, default=9)
     return parser

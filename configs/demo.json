@@ -1,0 +1,31 @@
+{
+    "imageShape": [
+        1024,
+        1024,
+        3
+    ],
+    "inputShape": [
+        256,
+        256,
+        3
+    ],
+    "pretrainedModel": "pretrainedModels/PathoNet.h5",
+    "classes": 3,
+    "model": "PathoNet",
+    "logPath": "logs/",
+    "data_path": "",
+    "loss": "mse",
+    "optimizer": "adam",
+    "lr": 0.01,
+    "batchSize": 16,
+    "epoches": 30,
+    "validationSplit": 0.2,
+    "trainDataPath": null,
+    "thresholds": [
+        120,
+        180,
+        40
+    ],
+    "guaMaxValue": 2550,
+    "minDistance": 5
+}

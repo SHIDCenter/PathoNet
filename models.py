@@ -2,7 +2,7 @@ import numpy as np
 import tensorflow as tf
 from keras import backend as K
 from keras.models import Model
-
+from keras.utils import multi_gpu_model
 from keras.layers import (Input,Add,add,concatenate,Activation,concatenate,
                         Concatenate,Dropout,BatchNormalization,Reshape,Permute,
                         Dense,UpSampling2D,Flatten,Lambda,Activation,Conv2D,
@@ -14,6 +14,7 @@ from keras.utils.layer_utils import get_source_inputs
 from keras.utils.data_utils import get_file
 from keras.activations import relu
 from keras.optimizers import SGD, Adam
+
 
 WEIGHTS_PATH_X = "https://github.com/bonlime/keras-deeplab-v3-plus/releases/download/1.1/deeplabv3_xception_tf_dim_ordering_tf_kernels.h5"
 WEIGHTS_PATH_MOBILE = "https://github.com/bonlime/keras-deeplab-v3-plus/releases/download/1.1/deeplabv3_mobilenetv2_tf_dim_ordering_tf_kernels.h5"
@@ -283,8 +284,11 @@ def FCRN_A(input_dim, classes=3, pretrained_weights = None):
     density_pred =  Conv2D(classes, 1, 1, bias = False, activation='linear',init='orthogonal',name='pred',border_mode='same')(block7)
 
     model = Model (input = input_, output = density_pred)
+
+    model.summary()
+
     if(pretrained_weights):
-    	model.load_weights(pretrained_weights)
+        model.load_weights(pretrained_weights)
     return model
 
 def FCRN_B(input_dim, classes=3, pretrained_weights = None):
@@ -315,8 +319,11 @@ def FCRN_B(input_dim, classes=3, pretrained_weights = None):
     act7 = Activation(activation = 'relu')(up7)
     density_pred =  Conv2D(classes, 1, 1, bias = False, activation='linear',init='orthogonal',name='pred',border_mode='same')(act7)
     model = Model (input = input_, output = density_pred)
+
+    model.summary()
+
     if(pretrained_weights):
-    	model.load_weights(pretrained_weights)
+        model.load_weights(pretrained_weights)
     return model
 
 def PathoNet(input_size = (256,256,3), classes=3, pretrained_weights = None):
@@ -372,8 +379,7 @@ def PathoNet(input_size = (256,256,3), classes=3, pretrained_weights = None):
     model.summary()
 
     if(pretrained_weights):
-    	model.load_weights(pretrained_weights)
-
+        model.load_weights(pretrained_weights)
     return model
 
 def Deeplabv3(weights=None, input_tensor=None, input_shape=(256, 256, 3), classes=3, backbone='mobilenetv2',
@@ -640,11 +646,17 @@ def modelCreator(modelName,inputShape,classes,weights=None):
     elif modelName=="FCRN_B":
         model=FCRN_B(inputShape,classes=classes,pretrained_weights = weights)
     elif modelName=="Deeplab_xception":
-        Deeplabv3(weights=weights, input_shape=inputShape, classes=classes, backbone='xception',
+        model=Deeplabv3(weights=None, input_shape=inputShape, classes=classes, backbone='xception',
               OS=16, alpha=1., activation=None)
+        model.summary()
+        if weights!= None:
+            model.load_weights(weights)
     elif modelName=="Deeplab_mobilenet":
-        model=Deeplabv3(weights=weights, input_shape=inputShape, classes=classes, backbone='mobilenetv2',
+        model=Deeplabv3(weights=None, input_shape=inputShape, classes=classes, backbone='mobilenetv2',
               OS=16, alpha=1., activation=None)
+        model.summary()
+        if weights!= None:
+            model.load_weights(weights)
     else:
         raise ValueError('The `model` argument should be either '
                          'PathoNet,FRRN_A,FCRN_B,Deeplab_xception or Deeplab_mobilenet')
