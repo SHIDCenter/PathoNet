@@ -1,5 +1,7 @@
 # PathoNet: Deep learning assisted evaluation of Ki-67 and tumor infiltrating lymphocytes (TILs) as prognostic factors in breast cancer; A large dataset and baseline
 
+You can find arXiv version of this study [here](https://arxiv.org/abs/2010.04713).
+
 <p align="center">    
   <img src="https://github.com/SHIDCenter/PathoNet/blob/master/doc/pipeline_LQ.jpg">
 </p>
