@@ -17,7 +17,7 @@ class Config:
         self.validationSplit=0.2
         self.trainDataPath=""
         self.thresholds=[120,180,40]
-        self.guaMaxValue=2550
+        self.guaMaxValue=255
         self.minDistance =5
     
     def load(self,configPath):

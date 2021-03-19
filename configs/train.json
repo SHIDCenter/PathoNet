@@ -26,6 +26,6 @@
         180,
         40
     ],
-    "guaMaxValue": 2550,
+    "guaMaxValue": 255,
     "minDistance": 5
 }
