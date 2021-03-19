@@ -381,7 +381,7 @@ def PathoNet(input_size = (256,256,3), classes=3, pretrained_weights = None):
         model.load_weights(pretrained_weights)
     return model
 
-def Unet(pretrained_weights = None,input_size = (256,256,3)):
+def Unet(input_size,classes=3,pretrained_weights = None):
     inputs = Input(input_size)
     conv1 = Conv2D(64, 3, activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(inputs)
     btn1 = BatchNormalization()(conv1)
@@ -443,7 +443,7 @@ def Unet(pretrained_weights = None,input_size = (256,256,3)):
     btn9 = BatchNormalization()(conv9)
     conv9 = Conv2D(8, 3, activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(btn9)
     btn9 = BatchNormalization()(conv9)
-    conv10 = Conv2D(3, 1, activation = 'linear')(btn9)
+    conv10 = Conv2D(classes, 1, activation = 'linear')(btn9)
 
     model = Model(input = inputs, output = conv10)
     
@@ -718,6 +718,8 @@ def modelCreator(modelName,inputShape,classes,weights=None):
         model=FCRN_A(inputShape,classes=classes,pretrained_weights = weights)
     elif modelName=="FCRN_B":
         model=FCRN_B(inputShape,classes=classes,pretrained_weights = weights)
+    elif modelName=="Unet":
+        model=Unet(input_size,classes=classes,pretrained_weights = weights)
     elif modelName=="Deeplab_xception":
         model=Deeplabv3(weights=None, input_shape=inputShape, classes=classes, backbone='xception',
               OS=16, alpha=1., activation=None)
