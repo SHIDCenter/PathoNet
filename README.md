@@ -36,7 +36,7 @@ The nuclear protein Ki-67 and Tumor infiltrating lymphocytes (TILs) have been in
 
 
 ## Pretrained Models
-You can download the pretrained models:
+You can download the pretrained models :
   1. [DeepLab MobileNet](https://drive.google.com/file/d/1Zx1pwWVK2TlvBC91yoL3vJdEyGGGpHHW/view?usp=sharing)
   2. [DeepLab Xception](https://drive.google.com/file/d/1qJA1_CbjUPdv_pvo4pVVIHPxkPPWdSJ-/view?usp=sharing)
   3. [FCRNA](https://drive.google.com/file/d/12CBfmZNTPdA9A40CTsjcIp6l2ICMvi12/view?usp=sharing)
@@ -44,7 +44,7 @@ You can download the pretrained models:
   5. [PathoNet](https://drive.google.com/file/d/1SbFBRHVgvotpXkJwLgYT3KQJCgDcKFNB/view?usp=sharing)
   
 ## Datasets
-You need to download SHIDC-B-Ki-67 dataset by following instructions [here](http://www.shidc.ir/). You can wether download the pretrianed models and skip the training or perfotrm training from scratch. Table below shows statistics of this dataset.
+You need to download SHIDC-B-Ki-67 dataset by following instructions [here](https://shiraz-hidc.com/service/ki-67-dataset/). You can wether download the pretrianed models and skip the training or perfotrm training from scratch. Table below shows statistics of this dataset.
 
 <p align="center">    
   <img src="https://github.com/SHIDCenter/PathoNet/blob/master/doc/1.PNG">
@@ -98,6 +98,4 @@ In this section results obtained from this study is shown. Note that due to diff
   <img  src="https://github.com/SHIDCenter/PathoNet/blob/master/doc/qual_res_LQ.jpg">
 </p>
 
-## TODO
-- [ ] Add more comments
-- [ ] Threshold tunning code
+
