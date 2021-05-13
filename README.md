@@ -1,6 +1,5 @@
-# PathoNet: Deep learning assisted evaluation of Ki-67 and tumor infiltrating lymphocytes (TILs) as prognostic factors in breast cancer; A large dataset and baseline
-
-You can find arXiv version of this study [here](https://arxiv.org/abs/2010.04713).
+# PathoNet introduced as a deep neural network backend for evaluation of Ki-67 and tumor-infiltrating lymphocytes in breast cancer
+This repository is code release for the study published [here](https://www.nature.com/articles/s41598-021-86912-w) on Scientific Reports Journal.
 
 <p align="center">    
   <img src="https://github.com/SHIDCenter/PathoNet/blob/master/doc/pipeline_LQ.jpg">
@@ -8,7 +7,7 @@ You can find arXiv version of this study [here](https://arxiv.org/abs/2010.04713
 
 
 ### Abstract
-The nuclear protein Ki-67 and Tumor infiltrating lymphocytes (TILs) have been introduced as prognostic factors in predicting tumor progression and its treatment response. The value of Ki-67 index and TILs in approach to heterogeneous tumors such as Breast cancer (BC), known as the most common cancer in women worldwide, has been highlighted in literature. Due to the indeterminable and subjective nature of Ki-67 as well as TILs scoring, automated methods using machine learning, specifically approaches based on deep learning, have attracted attention. Yet, deep learning methods need considerable annotated data. In the absence of publicly available benchmarks for BC Ki-67 stained cell detection and further annotated classification of cells, we propose SHIDC-BC-Ki-67 as a dataset for aforementioned purpose. We also introduce a novel pipeline and a backend, namely PathoNet for Ki-67 immunostained cell detection and classification and simultaneous determination of intratumoral TILs score. Further, we show that despite facing challenges, our proposed backend, PathoNet, outperforms the state of the art methods proposed to date in the harmonic mean measure.
+The nuclear protein Ki-67 and Tumor infiltrating lymphocytes (TILs) have been introduced as prognostic factors in predicting both tumor progression and probable response to chemotherapy. The value of Ki-67 index and TILs in approach to heterogeneous tumors such as Breast cancer (BC) that is the most common cancer in women worldwide, has been highlighted in literature. Considering that estimation of both factors are dependent on professional pathologists’ observation and inter-individual variations may also exist, automated methods using machine learning, specifically approaches based on deep learning, have attracted attention. Yet, deep learning methods need considerable annotated data. In the absence of publicly available benchmarks for BC Ki-67 cell detection and further annotated classification of cells, In this study we propose SHIDC-BC-Ki-67 as a dataset for the aforementioned purpose. We also introduce a novel pipeline and backend, for estimation of Ki-67 expression and simultaneous determination of intratumoral TILs score in breast cancer cells. Further, we show that despite the challenges that our proposed model has encountered, our proposed backend, PathoNet, outperforms the state of the art methods proposed to date with regard to harmonic mean measure acquired.
 
 ### PathoNet Backend
 
@@ -26,25 +25,25 @@ The nuclear protein Ki-67 and Tumor infiltrating lymphocytes (TILs) have been in
 
 
 ## Requirements
-1. `pip install ./requirements.txt`
+1. `pip install -r ./requirements.txt`
 
 ### Tested Config
 - Cuda : 10.0
 - Tensorflow : 10.13.1
 - keras : 2.2.4
-- Nvidia river version : 436.48
-
+- Nvidia Driver version : 436.48
 
 ## Pretrained Models
 You can download the pretrained models :
-  1. [DeepLab MobileNet](https://drive.google.com/file/d/1Zx1pwWVK2TlvBC91yoL3vJdEyGGGpHHW/view?usp=sharing)
-  2. [DeepLab Xception](https://drive.google.com/file/d/1qJA1_CbjUPdv_pvo4pVVIHPxkPPWdSJ-/view?usp=sharing)
-  3. [FCRNA](https://drive.google.com/file/d/12CBfmZNTPdA9A40CTsjcIp6l2ICMvi12/view?usp=sharing)
-  4. [FCRNB](https://drive.google.com/file/d/14RykzFBl4_usilZ8fSovkbJcQBOH-FyZ/view?usp=sharing)
-  5. [PathoNet](https://drive.google.com/file/d/1SbFBRHVgvotpXkJwLgYT3KQJCgDcKFNB/view?usp=sharing)
+  1. [DeepLab MobileNet](https://drive.google.com/file/d/1Gy6lW8se2d2Z5rXdmUnGQ6flUa86dwGS/view?usp=sharing)
+  2. [DeepLab Xception](https://drive.google.com/file/d/1SWXqy0JipPx1zEOX5cQLleC73WMz2XWx/view?usp=sharing)
+  3. [FCRNA](https://drive.google.com/file/d/10iGXVsCNXk172ju9CoMRf7X-QGTSE5jp/view?usp=sharing)
+  4. [FCRNB](https://drive.google.com/file/d/1A0bjvDERNT9j66R60YqD_5FHdE-18W2W/view?usp=sharing)
+  5. [PathoNet](https://drive.google.com/file/d/1gi_I8LSwj-Wn8ui4-fh7rK450JdXSQpc/view?usp=sharing)
+  6. [U-Net](https://drive.google.com/file/d/1FHG2zfZ-SnYMuSIkd-UffaX2w5EGCloQ/view?usp=sharing)
   
 ## Datasets
-You need to download SHIDC-B-Ki-67 dataset by following instructions [here](https://shiraz-hidc.com/service/ki-67-dataset/). You can wether download the pretrianed models and skip the training or perfotrm training from scratch. Table below shows statistics of this dataset.
+You need to download SHIDC-B-Ki-67-V1.0 dataset by following instructions [here](https://shiraz-hidc.com/service/ki-67-dataset/). You can wether download the pretrianed models and skip the training or perfotrm training from scratch. Table below shows statistics of this dataset.
 
 <p align="center">    
   <img src="https://github.com/SHIDCenter/PathoNet/blob/master/doc/1.PNG">
@@ -77,25 +76,29 @@ In order to perform preprocessing run the following command:
 python preprocessing.py -i <input data directory> -o <output data directory> -s <output size(default=256,256,3)> -a <data augmentation flag(default=False)> -g <label gaussian size(default=9)>
 ```
 
-
 ## Results
 In this section results obtained from this study is shown. Note that due to different initialization points, final result may vary a bit.
 
 ### Quantitative Results
 <p align="center">    
-  <img src="https://github.com/SHIDCenter/PathoNet/blob/master/doc/2.PNG">
+  <img src="https://github.com/SHIDCenter/PathoNet/blob/master/doc/quant_1.png">
 </p>
 <p align="center">    
-  <img src="https://github.com/SHIDCenter/PathoNet/blob/master/doc/3.PNG">
+  <img src="https://github.com/SHIDCenter/PathoNet/blob/master/doc/quant_2.png">
 </p>
 <p align="center">    
-  <img src="https://github.com/SHIDCenter/PathoNet/blob/master/doc/4.PNG">
+  <img src="https://github.com/SHIDCenter/PathoNet/blob/master/doc/quant_3.png">
 </p>
 
 ### Qualitative Results
-
+Qualitative result samples on cropped images:
 <p align="center">    
   <img  src="https://github.com/SHIDCenter/PathoNet/blob/master/doc/qual_res_LQ.jpg">
+</p>
+
+Below, you can see a sample of Raw image (4912x3684 pixels) and it's prediction using the proposed backend:
+<p align="center">    
+  <img  src="https://github.com/SHIDCenter/PathoNet/blob/master/doc/qual_2.png">
 </p>
 
 
