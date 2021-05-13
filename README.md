@@ -101,4 +101,17 @@ Below, you can see a sample of Raw image (4912x3684 pixels) and it's prediction 
   <img  src="https://github.com/SHIDCenter/PathoNet/blob/master/doc/qual_2.png">
 </p>
 
-
+## Citation
+If you found this work useful in your research, please give credits to the authors by citing:
+```
+@article{negahbani2021pathonet,
+  title={PathoNet introduced as a deep neural network backend for evaluation of Ki-67 and tumor-infiltrating lymphocytes in breast cancer},
+  author={Negahbani, Farzin and Sabzi, Rasool and Jahromi, Bita Pakniyat and Firouzabadi, Dena and Movahedi, Fateme and Shirazi, Mahsa Kohandel and Majidi, Shayan and Dehghanian, Amirreza},
+  journal={Scientific reports},
+  volume={11},
+  number={1},
+  pages={1--13},
+  year={2021},
+  publisher={Nature Publishing Group}
+}
+```
