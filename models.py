@@ -447,7 +447,7 @@ def Unet(input_size,classes=3,pretrained_weights = None):
 
     model = Model(input = inputs, output = conv10)
     
-    #model.summary()
+    model.summary()
 
     if(pretrained_weights):
     	model.load_weights(pretrained_weights)
@@ -714,12 +714,12 @@ def Deeplabv3(weights=None, input_tensor=None, input_shape=(256, 256, 3), classe
 def modelCreator(modelName,inputShape,classes,weights=None):
     if modelName=="PathoNet":
         model=PathoNet(input_size = inputShape, classes=classes,pretrained_weights = weights)
-    elif modelName=="FRRN_A":
+    elif modelName=="FCRN_A":
         model=FCRN_A(inputShape,classes=classes,pretrained_weights = weights)
     elif modelName=="FCRN_B":
         model=FCRN_B(inputShape,classes=classes,pretrained_weights = weights)
     elif modelName=="Unet":
-        model=Unet(input_size,classes=classes,pretrained_weights = weights)
+        model=Unet(inputShape,classes=classes,pretrained_weights = weights)
     elif modelName=="Deeplab_xception":
         model=Deeplabv3(weights=None, input_shape=inputShape, classes=classes, backbone='xception',
               OS=16, alpha=1., activation=None)
