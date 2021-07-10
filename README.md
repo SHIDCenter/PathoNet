@@ -35,12 +35,12 @@ The nuclear protein Ki-67 and Tumor infiltrating lymphocytes (TILs) have been in
 
 ## Pretrained Models
 You can download the pretrained models :
-  1. [DeepLab MobileNet](https://drive.google.com/file/d/1Gy6lW8se2d2Z5rXdmUnGQ6flUa86dwGS/view?usp=sharing)
-  2. [DeepLab Xception](https://drive.google.com/file/d/1SWXqy0JipPx1zEOX5cQLleC73WMz2XWx/view?usp=sharing)
-  3. [FCRNA](https://drive.google.com/file/d/10iGXVsCNXk172ju9CoMRf7X-QGTSE5jp/view?usp=sharing)
-  4. [FCRNB](https://drive.google.com/file/d/1A0bjvDERNT9j66R60YqD_5FHdE-18W2W/view?usp=sharing)
-  5. [PathoNet](https://drive.google.com/file/d/1gi_I8LSwj-Wn8ui4-fh7rK450JdXSQpc/view?usp=sharing)
-  6. [U-Net](https://drive.google.com/file/d/1FHG2zfZ-SnYMuSIkd-UffaX2w5EGCloQ/view?usp=sharing)
+  1. [DeepLab MobileNet](https://drive.google.com/file/d/1cGiM8LHYCycCCUrxNegWFAcaLTtXbfO5/view?usp=sharing)
+  2. [DeepLab Xception](https://drive.google.com/file/d/1Mcn_85Sd2STYZQw5TWhhLaBEOcErPZoa/view?usp=sharing)
+  3. [FCRNA](https://drive.google.com/file/d/1I48I_1xJvxH2Ug-C1qt-XRT_gpmqJIYd/view?usp=sharing)
+  4. [FCRNB](https://drive.google.com/file/d/1h3alzYMF6SSCg7kNRQEsrrdtBJ3KiRQR/view?usp=sharing)
+  5. [PathoNet](https://drive.google.com/file/d/13M6WpBsY_XtIKev_A6EK_Cj2LuBySM3K/view?usp=sharing)
+  6. [U-Net](https://drive.google.com/file/d/1WOVw3vCBZkN9Nk58Il79gcnI7CoSsWfb/view?usp=sharing)
   
 ## Datasets
 You need to download SHIDC-B-Ki-67-V1.0 dataset by following instructions [here](https://shiraz-hidc.com/service/ki-67-dataset/). You can wether download the pretrianed models and skip the training or perfotrm training from scratch. Table below shows statistics of this dataset.
