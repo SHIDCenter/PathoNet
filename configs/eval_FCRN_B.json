@@ -1,0 +1,31 @@
+{
+    "imageShape": [
+        1228,
+        1228,
+        3
+    ],
+    "inputShape": [
+        256,
+        256,
+        3
+    ],
+    "pretrainedModel": "pretrainedModels/FCRN_B.hdf5",
+    "classes": 3,
+    "model": "FCRN_B",
+    "logPath": "logs/",
+    "data_path": "",
+    "loss": "mse",
+    "optimizer": "adam",
+    "lr": 0.001,
+    "batchSize": 16,
+    "epoches": 30,
+    "validationSplit": 0.2,
+    "trainDataPath": "data/Train/",
+    "thresholds": [
+        60,
+        65,
+        40
+    ],
+    "guaMaxValue": 255,
+    "minDistance": 5
+}

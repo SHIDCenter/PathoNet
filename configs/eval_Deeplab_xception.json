@@ -1,0 +1,31 @@
+{
+    "imageShape": [
+        1228,
+        1228,
+        3
+    ],
+    "inputShape": [
+        256,
+        256,
+        3
+    ],
+    "pretrainedModel": "pretrainedModels/Deeplab_xception.hdf5",
+    "classes": 3,
+    "model": "Deeplab_xception",
+    "logPath": "logs/",
+    "data_path": "",
+    "loss": "mse",
+    "optimizer": "adam",
+    "lr": 0.001,
+    "batchSize": 16,
+    "epoches": 30,
+    "validationSplit": 0.2,
+    "trainDataPath": "data/Train/",
+    "thresholds": [
+        55,
+        40,
+        45
+    ],
+    "guaMaxValue": 255,
+    "minDistance": 5
+}

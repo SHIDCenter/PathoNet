@@ -16,8 +16,13 @@ def read_labels(name,inputShape,imageShape):
         temp = json.load(f)
         labels=[]
         for d in temp:
-            x=min(max(int(int(d['x'])*(inputShape[0]/imageShape[0])),0),inputShape[0])
-            y=min(max(int(int(d['y'])*(inputShape[1]/imageShape[1])),0),inputShape[1])
+            print(imageShape)
+            if imageShape[0] ==255 and imageShape[1]==255:
+                x=int(d['x'])
+                y=int(d['y'])
+            else:
+                x=min(max(int(int(d['x'])*(inputShape[0]/imageShape[0])),0),inputShape[0])
+                y=min(max(int(int(d['y'])*(inputShape[1]/imageShape[1])),0),inputShape[1])
             c=int(d['label_id'])-1
             labels.append([x,y,c])
         labels=np.array(labels)
@@ -57,7 +62,7 @@ def eval(args=None):
     res=np.zeros((len(data),3,3))
     for i,d in enumerate(data):
         img=imageio.imread(d)
-        labels=read_labels(d.replace(".jpg",".json"),conf.inputShape,conf.imageShape).reshape((-1,3))
+        labels=read_labels(d.replace(".jpg",".json"),conf.inputShape,img.shape).reshape((-1,3))
         img=misc.imresize(img,conf.inputShape)
         pred=pipeline.predict(img)
         if len(pred!=0):
