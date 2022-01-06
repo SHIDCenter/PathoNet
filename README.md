@@ -81,13 +81,13 @@ In this section results obtained from this study is shown. Note that due to diff
 
 ### Quantitative Results
 <p align="center">    
-  <img src="https://github.com/SHIDCenter/PathoNet/blob/master/doc/quant_1.png">
+  <img src="https://github.com/SHIDCenter/PathoNet/blob/master/doc/quant_1_v2.png">
 </p>
 <p align="center">    
   <img src="https://github.com/SHIDCenter/PathoNet/blob/master/doc/quant_2.png">
 </p>
 <p align="center">    
-  <img src="https://github.com/SHIDCenter/PathoNet/blob/master/doc/quant_3.png">
+  <img src="https://github.com/SHIDCenter/PathoNet/blob/master/doc/quant_3_v2.png">
 </p>
 
 ### Qualitative Results
