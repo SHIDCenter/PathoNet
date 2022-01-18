@@ -32,7 +32,7 @@ The nuclear protein Ki-67 and Tumor infiltrating lymphocytes (TILs) have been in
 - Tensorflow : 10.13.1
 - keras : 2.2.4
 - Nvidia Driver version : 436.48
-- Python: 3.6+
+- Python: 3.6.X
 
 ## Pretrained Models
 You can download the pretrained models :
