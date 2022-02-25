@@ -30,7 +30,7 @@ def train(args=None):
     os.makedirs(conf.logPath+"/"+trainString)
     conf.save(conf.logPath+"/"+trainString+'/config.json')
     print('Compiling model...')
-    model_checkpoint = ModelCheckpoint(conf.logPath+"/"+trainString+'/Checkpoint-{epoch:02d}-{val_loss:.2f}.hdf5', monitor='val_loss', save_best_only=False, , save_weights_only=True)
+    model_checkpoint = ModelCheckpoint(conf.logPath+"/"+trainString+'/Checkpoint-{epoch:02d}-{val_loss:.2f}.hdf5', monitor='val_loss', save_best_only=False, save_weights_only=True)
     change_lr = LearningRateScheduler(LrPolicy(conf.lr).stepDecay)
     tbCallBack=TensorBoard(log_dir=conf.logPath+"/"+trainString+'/logs', histogram_freq=0,  write_graph=True, write_images=True)
     model=models.modelCreator(conf.model,conf.inputShape,conf.classes,conf.pretrainedModel)
