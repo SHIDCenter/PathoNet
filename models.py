@@ -450,7 +450,7 @@ def Unet(input_size,classes=3,pretrained_weights = None):
     model.summary()
 
     if(pretrained_weights):
-    	model.load_weights(pretrained_weights)
+        model.load_weights(pretrained_weights)
 
     return model
 
