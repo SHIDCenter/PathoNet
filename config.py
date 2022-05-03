@@ -7,7 +7,7 @@ class Config:
         self.pretrainedModel=None
         self.classes=3
         self.model="PathoNet" #PathoNet,FRRN_A,FCRN_B,Deeplab_xception,Deeplab_mobilenet
-        self.logPath="logs/"
+        self.logPath="logs"
         self.data_path=""
         self.loss="mse"
         self.optimizer="adam"

@@ -3,6 +3,7 @@ import glob
 from scipy import misc
 from utils import dataAugmentation,createGaussianLabel
 import numpy as np
+import os
 
 def get_parser():
     
@@ -36,7 +37,7 @@ def sizes(s):
 def preprocess(args=None):
     parser = get_parser()
     args = parser.parse_args(args)
-    jpgFiles = glob.glob(args.inputPath+'\\'+'*.jpg') 
+    jpgFiles = glob.glob(os.path.join(args.inputPath,'*.jpg'))
     for f in  jpgFiles:
         image=misc.imread(f)
         img=misc.imresize(image,args.outputsize)
@@ -44,11 +45,11 @@ def preprocess(args=None):
         if args.augmentation:
             images,labels=dataAugmentation([img],[label])
             for i in range(len(images)):
-                name=args.outputPath+'\\'+(f.replace(".jpg","").split('\\')[-1])+"_"+str(i)
+                name = os.path.join(args.outputPath, os.path.basename(f).replace(".jpg", "_"+str(i)))
                 misc.imsave(name+'.jpg',images[i]) 
                 np.save(name+'.npy',labels[i].astype(np.uint8))
         else:
-            name=args.outputPath+(f.replace(".jpg","").split('\\')[-1])
+            name = os.path.join(args.outputPath, os.path.basename(f).replace(".jpg", ""))
             misc.imsave(name+'.jpg',img) 
             np.save(name+'.npy',label)
 

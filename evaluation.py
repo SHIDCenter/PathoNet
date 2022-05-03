@@ -59,7 +59,8 @@ def eval(args=None):
     conf=Config()
     conf.load(args.configPath)
     pipeline=Pipeline(conf) 
-    data = [args.inputPath+"/"+f for f in os.listdir(args.inputPath) if '.jpg' in f]
+    f = [f for f in os.listdir(args.inputPath) if '.jpg' in f]
+    data = list(map(lambda x : os.path.join(args.inputPath,x),f))
     res=np.zeros((len(data),3,3))
     for i,d in enumerate(data):
         img=imageio.imread(d)
@@ -88,8 +89,8 @@ def eval_pts(args=None):
     conf=Config()
     conf.load(args.configPath)
     pipeline=Pipeline(conf) 
-    data = [args.inputPath+"/"+f for f in os.listdir(args.inputPath) if '.jpg' in f]
-    
+    f = [f for f in os.listdir(args.inputPath) if '.jpg' in f]
+    data = list(map(lambda x : os.path.join(args.inputPath,x),f))
     # Group data paths by patients
     grouped_data = {}
     for im in data:

@@ -22,7 +22,7 @@ class DataLoader:
             for b in batch:
                 img=imread(b)
                 images.append(img)
-                temp = createGaussianLabel(b.replace(".jpg",".json"),self.outputsize,img.shape,self.GaussianSize,self.n_classesG,self.labelIdStartatZero)
+                temp = createGaussianLabel(b.replace(".jpg",".json"),self.outputsize,img.shape,self.GaussianSize,self.n_classes,self.labelIdStartatZero)
                 np.place(temp,temp==255,self.guaMaxValue)
                 labels.append(temp)
             images=np.array(images)
