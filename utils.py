@@ -42,7 +42,7 @@ def dataAugmentation(images,labels):
         newLabels.append(np.rot90(labels[i],k=3))
     return np.array(newImages),np.array(newLabels)
 
-def createGaussianLabel(labelPath,inputShape,imageShape,GaussianSize):
+def createGaussianLabel(labelPath,inputShape,imageShape,GaussianSize,labelIdStartatZero=False):
     x, y = np.meshgrid(np.linspace(-1,1,GaussianSize), np.linspace(-1,1,GaussianSize))
     d = np.sqrt(x*x+y*y)
     sigma, mu = 0.5, 0.0
@@ -56,15 +56,12 @@ def createGaussianLabel(labelPath,inputShape,imageShape,GaussianSize):
         y=min(max(int(int(d['x'])*(inputShape[1]/imageShape[1])),0),inputShape[1])
         x_,y_=img[max(int(x-math.floor(GaussianSize/2)),0):min(int(x+math.ceil(GaussianSize/2)),255),max(int(y-math.floor(GaussianSize/2)),0):min(int(y+math.ceil(GaussianSize/2)),255),0].shape
 
-        if(int(d['label_id'])==1):
-            guLabel[max(int(x-math.floor(GaussianSize/2)),0):min(int(x+math.ceil(GaussianSize/2)),255),max(0,int(y-math.floor(GaussianSize/2))):min(int(y+math.ceil(GaussianSize/2)),255),0]=gua[math.floor(GaussianSize/2)-x_//2:math.floor(GaussianSize/2)+x_//2+x_%2,math.floor(GaussianSize/2)-y_//2:math.floor(GaussianSize/2)+y_//2+y_%2]
-
-        if(int(d['label_id'])==2):
-            guLabel[max(int(x-math.floor(GaussianSize/2)),0):min(int(x+math.ceil(GaussianSize/2)),255),max(0,int(y-math.floor(GaussianSize/2))):min(int(y+math.ceil(GaussianSize/2)),255),1]=gua[math.floor(GaussianSize/2)-x_//2:math.floor(GaussianSize/2)+x_//2+x_%2,math.floor(GaussianSize/2)-y_//2:math.floor(GaussianSize/2)+y_//2+y_%2]
-
-        if(int(d['label_id'])==3):
-            guLabel[max(int(x-math.floor(GaussianSize/2)),0):min(int(x+math.ceil(GaussianSize/2)),255),max(0,int(y-math.floor(GaussianSize/2))):min(int(y+math.ceil(GaussianSize/2)),255),2]=gua[math.floor(GaussianSize/2)-x_//2:math.floor(GaussianSize/2)+x_//2+x_%2,math.floor(GaussianSize/2)-y_//2:math.floor(GaussianSize/2)+y_//2+y_%2]
-        
+        label_id=int(d['label_id'])
+        if labelIdStartatZero:
+            guLabel[max(int(x-math.floor(GaussianSize/2)),0):min(int(x+math.ceil(GaussianSize/2)),255),max(0,int(y-math.floor(GaussianSize/2))):min(int(y+math.ceil(GaussianSize/2)),255),label_id]=gua[math.floor(GaussianSize/2)-x_//2:math.floor(GaussianSize/2)+x_//2+x_%2,math.floor(GaussianSize/2)-y_//2:math.floor(GaussianSize/2)+y_//2+y_%2]
+        else:
+            guLabel[max(int(x-math.floor(GaussianSize/2)),0):min(int(x+math.ceil(GaussianSize/2)),255),max(0,int(y-math.floor(GaussianSize/2))):min(int(y+math.ceil(GaussianSize/2)),255),label_id-1]=gua[math.floor(GaussianSize/2)-x_//2:math.floor(GaussianSize/2)+x_//2+x_%2,math.floor(GaussianSize/2)-y_//2:math.floor(GaussianSize/2)+y_//2+y_%2]
+    
     return guLabel
 
 class LrPolicy:

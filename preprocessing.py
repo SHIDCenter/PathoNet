@@ -12,6 +12,7 @@ def get_parser():
     parser.add_argument('--outputsize','-s', type=sizes,default=(256,256,3))
     parser.add_argument("--augmentation", '-a',  type=str2bool, nargs='?',const=True, default=False)
     parser.add_argument("--GaussianSize", '-g',  type=int, default=9)
+    parser.add_argument("--labelIdStartatZero", '-l',required=False,  type=str2bool, nargs='?',const=True, default=False)
     return parser
 
 
@@ -39,7 +40,7 @@ def preprocess(args=None):
     for f in  jpgFiles:
         image=misc.imread(f)
         img=misc.imresize(image,args.outputsize)
-        label=createGaussianLabel(f.replace(".jpg",".json"),args.outputsize,image.shape,args.GaussianSize)
+        label=createGaussianLabel(f.replace(".jpg",".json"),args.outputsize,image.shape,args.GaussianSize,args.labelIdStartatZero)
         if args.augmentation:
             images,labels=dataAugmentation([img],[label])
             for i in range(len(images)):
