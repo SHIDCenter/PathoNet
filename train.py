@@ -4,7 +4,6 @@ import random
 import numpy as np
 from scipy import misc
 import gc
-from keras.optimizers import Adam
 from imageio import imread
 from datetime import datetime
 import os
@@ -40,8 +39,8 @@ def train(args=None):
     thr=int(len(data)*conf.validationSplit)
     trainData=data[thr:]
     valData=data[:thr]
-    trainDataLoader=DataLoader(conf.batchSize,conf.inputShape,trainData,conf.guaMaxValue)
-    validationDataLoader=DataLoader(conf.batchSize,conf.inputShape,valData,conf.guaMaxValue)
+    trainDataLoader=DataLoader(conf.batchSize,conf.inputShape,trainData,conf.guaMaxValue,conf.inputShape,conf.gauSize,conf.classes,conf.labelIdStartatZero)
+    validationDataLoader=DataLoader(conf.batchSize,conf.inputShape,valData,conf.guaMaxValue,conf.inputShape,conf.gauSize,conf.classes,conf.labelIdStartatZero)
     print('Fitting model...')
     model.fit_generator(generator=trainDataLoader.generator(),
                     validation_data=validationDataLoader.generator(),

@@ -27,5 +27,7 @@
         40
     ],
     "guaMaxValue": 255,
-    "minDistance": 5
+    "minDistance": 5,
+    "gauSize": 9,
+    "labelIdStartatZero": true
 }

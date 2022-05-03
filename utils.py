@@ -5,11 +5,15 @@ from imageio import imread
 
 
 class DataLoader:
-    def __init__(self,batchSize,inputShape,dataList,guaMaxValue):
+    def __init__(self,batchSize,inputShape,dataList,guaMaxValue,outputsize,gauSize,n_classes,labelIdStartatZero):
         self.inputShape=inputShape
         self.batchSize=batchSize
         self.dataList=dataList
         self.guaMaxValue=guaMaxValue
+        self.outputsize=outputsize
+        self.GaussianSize=gauSize
+        self.labelIdStartatZero=labelIdStartatZero
+        self.n_classes=n_classes
     def generator(self):
         while(1):
             batch=np.random.choice(self.dataList,size=self.batchSize,replace=False)
@@ -18,7 +22,7 @@ class DataLoader:
             for b in batch:
                 img=imread(b)
                 images.append(img)
-                temp=np.load(b.replace(".jpg",".npy")).astype(int)
+                temp = createGaussianLabel(b.replace(".jpg",".json"),self.outputsize,img.shape,self.GaussianSize,self.n_classesG,self.labelIdStartatZero)
                 np.place(temp,temp==255,self.guaMaxValue)
                 labels.append(temp)
             images=np.array(images)
@@ -42,7 +46,7 @@ def dataAugmentation(images,labels):
         newLabels.append(np.rot90(labels[i],k=3))
     return np.array(newImages),np.array(newLabels)
 
-def createGaussianLabel(labelPath,inputShape,imageShape,GaussianSize,labelIdStartatZero=False):
+def createGaussianLabel(labelPath,inputShape,imageShape,GaussianSize,n_classes,labelIdStartatZero=False):
     x, y = np.meshgrid(np.linspace(-1,1,GaussianSize), np.linspace(-1,1,GaussianSize))
     d = np.sqrt(x*x+y*y)
     sigma, mu = 0.5, 0.0
@@ -50,7 +54,7 @@ def createGaussianLabel(labelPath,inputShape,imageShape,GaussianSize,labelIdStar
     with open(labelPath) as f:
         label = json.load(f)
     img=np.zeros(shape=inputShape,dtype=np.int)
-    guLabel=np.zeros(shape=inputShape,dtype=np.int)
+    guLabel=np.zeros(shape=(inputShape[0], inputShape[1], n_classes),dtype=np.int)
     for d in label:
         x=min(max(int(int(d['y'])*(inputShape[0]/imageShape[0])),0),inputShape[0])
         y=min(max(int(int(d['x'])*(inputShape[1]/imageShape[1])),0),inputShape[1])

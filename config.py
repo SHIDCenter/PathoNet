@@ -19,6 +19,8 @@ class Config:
         self.thresholds=[120,180,40]
         self.guaMaxValue=255
         self.minDistance =5
+        self.gauSize=9
+        self.labelIdStartatZero=False
     
     def load(self,configPath):
         with open(configPath,'r') as f:
