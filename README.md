@@ -76,7 +76,10 @@ In order to perform preprocessing run the following command:
 ```
 python preprocessing.py -i <input data directory> -o <output data directory> -s <output size(default=256,256,3)> -a <data augmentation flag(default=False)> -g <label gaussian size(default=9)>
 ```
-
+### Croping
+To crop the images run the following command:
+```python croping.py -i <input data directory> -ij <input json path> -o <output data directory> -oj <output json directory> -cs <crop size(default=256,256,3)>
+```
 ## Results
 In this section results obtained from this study is shown. Note that due to different initialization points, final result may vary a bit.
 

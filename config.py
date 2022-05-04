@@ -7,7 +7,7 @@ class Config:
         self.pretrainedModel=None
         self.classes=3
         self.model="PathoNet" #PathoNet,FRRN_A,FCRN_B,Deeplab_xception,Deeplab_mobilenet
-        self.logPath="logs/"
+        self.logPath="logs"
         self.data_path=""
         self.loss="mse"
         self.optimizer="adam"
@@ -19,6 +19,8 @@ class Config:
         self.thresholds=[120,180,40]
         self.guaMaxValue=255
         self.minDistance =5
+        self.gauSize=9
+        self.labelIdStartatZero=False
     
     def load(self,configPath):
         with open(configPath,'r') as f:

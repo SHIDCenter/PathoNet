@@ -10,9 +10,9 @@
         3
     ],
     "pretrainedModel": null,
-    "classes": 3,
+    "classes": 5,
     "model": "PathoNet",
-    "logPath": "logs/",
+    "logPath": "logs",
     "data_path": "",
     "loss": "mse",
     "optimizer": "adam",
@@ -20,12 +20,14 @@
     "batchSize": 16,
     "epoches": 30,
     "validationSplit": 0.2,
-    "trainDataPath": "data/Train/",
+    "trainDataPath": "data",
     "thresholds": [
         120,
         180,
         40
     ],
     "guaMaxValue": 255,
-    "minDistance": 5
+    "minDistance": 5,
+    "gauSize": 9,
+    "labelIdStartatZero": true
 }

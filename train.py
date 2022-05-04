@@ -4,7 +4,6 @@ import random
 import numpy as np
 from scipy import misc
 import gc
-from keras.optimizers import Adam
 from imageio import imread
 from datetime import datetime
 import os
@@ -27,21 +26,22 @@ def train(args=None):
     conf.load(args.configPath)
     time=datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
     trainString="%s_%s_%s_%s" % (conf.model,conf.optimizer,str(conf.lr),time)
-    os.makedirs(conf.logPath+"/"+trainString)
-    conf.save(conf.logPath+"/"+trainString+'/config.json')
+    os.makedirs(os.path.join(conf.logPath,trainString))
+    conf.save(os.path.join(conf.logPath,trainString,'config.json'))
     print('Compiling model...')
-    model_checkpoint = ModelCheckpoint(conf.logPath+"/"+trainString+'/Checkpoint-{epoch:02d}-{val_loss:.2f}.hdf5', monitor='val_loss', save_best_only=False, save_weights_only=True)
+    model_checkpoint = ModelCheckpoint(os.path.join(conf.logPath,trainString,'Checkpoint-{epoch:02d}-{val_loss:.2f}.hdf5'), monitor='val_loss', save_best_only=False, save_weights_only=True)
     change_lr = LearningRateScheduler(LrPolicy(conf.lr).stepDecay)
-    tbCallBack=TensorBoard(log_dir=conf.logPath+"/"+trainString+'/logs', histogram_freq=0,  write_graph=True, write_images=True)
+    tbCallBack=TensorBoard(log_dir=os.path.join(conf.logPath,trainString,'logs'), histogram_freq=0,  write_graph=True, write_images=True)
     model=models.modelCreator(conf.model,conf.inputShape,conf.classes,conf.pretrainedModel)
     model.compile(optimizer = conf.optimizer, loss = conf.loss)
-    data = [conf.trainDataPath+"/"+f for f in os.listdir(conf.trainDataPath) if '.jpg' in f]
+    f = [f for f in os.listdir(conf.trainDataPath) if '.jpg' in f]
+    data = list(map(lambda x : os.path.join(conf.trainDataPath,x),f))
     random.shuffle(data)
     thr=int(len(data)*conf.validationSplit)
     trainData=data[thr:]
     valData=data[:thr]
-    trainDataLoader=DataLoader(conf.batchSize,conf.inputShape,trainData,conf.guaMaxValue)
-    validationDataLoader=DataLoader(conf.batchSize,conf.inputShape,valData,conf.guaMaxValue)
+    trainDataLoader=DataLoader(conf.batchSize,conf.inputShape,trainData,conf.guaMaxValue,conf.inputShape,conf.gauSize,conf.classes,conf.labelIdStartatZero)
+    validationDataLoader=DataLoader(conf.batchSize,conf.inputShape,valData,conf.guaMaxValue,conf.inputShape,conf.gauSize,conf.classes,conf.labelIdStartatZero)
     print('Fitting model...')
     model.fit_generator(generator=trainDataLoader.generator(),
                     validation_data=validationDataLoader.generator(),

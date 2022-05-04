@@ -12,8 +12,6 @@ from keras.regularizers import l2
 from keras.utils.layer_utils import get_source_inputs
 from keras.utils.data_utils import get_file
 from keras.activations import relu
-from keras.optimizers import SGD, Adam
-
 
 WEIGHTS_PATH_X = "https://github.com/bonlime/keras-deeplab-v3-plus/releases/download/1.1/deeplabv3_xception_tf_dim_ordering_tf_kernels.h5"
 WEIGHTS_PATH_MOBILE = "https://github.com/bonlime/keras-deeplab-v3-plus/releases/download/1.1/deeplabv3_mobilenetv2_tf_dim_ordering_tf_kernels.h5"
@@ -372,7 +370,7 @@ def PathoNet(input_size = (256,256,3), classes=3, pretrained_weights = None):
     block9 = LeakyReLU()(block9)
     conv10 = Conv2D(classes, 1, activation = 'relu')(block9)
 
-    model = Model(input = inputs, output = conv10)
+    model = Model(inputs = inputs, outputs = conv10)
 
     
     model.summary()
@@ -450,7 +448,7 @@ def Unet(input_size,classes=3,pretrained_weights = None):
     model.summary()
 
     if(pretrained_weights):
-    	model.load_weights(pretrained_weights)
+        model.load_weights(pretrained_weights)
 
     return model
 

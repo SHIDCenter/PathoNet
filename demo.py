@@ -36,7 +36,8 @@ def demo(args=None):
     conf.load(args.configPath)
     pipeline=Pipeline(conf)
     if os.path.isdir(args.inputPath):  
-        data = [args.inputPath+"/"+f for f in os.listdir(args.inputPath) if '.jpg' in f]
+        f = [f for f in os.listdir(args.inputPath) if '.jpg' in f]
+        data = list(map(lambda x : os.path.join(args.inputPath,x),f))
         for d in data:
             print(d)
             img=imageio.imread(d)

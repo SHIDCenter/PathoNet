@@ -3,6 +3,7 @@ import glob
 from scipy import misc
 from utils import dataAugmentation,createGaussianLabel
 import numpy as np
+import os
 
 def get_parser():
     
@@ -12,6 +13,7 @@ def get_parser():
     parser.add_argument('--outputsize','-s', type=sizes,default=(256,256,3))
     parser.add_argument("--augmentation", '-a',  type=str2bool, nargs='?',const=True, default=False)
     parser.add_argument("--GaussianSize", '-g',  type=int, default=9)
+    parser.add_argument("--labelIdStartatZero", '-l',required=False,  type=str2bool, nargs='?',const=True, default=False)
     return parser
 
 
@@ -35,19 +37,19 @@ def sizes(s):
 def preprocess(args=None):
     parser = get_parser()
     args = parser.parse_args(args)
-    jpgFiles = glob.glob(args.inputPath+'\\'+'*.jpg') 
+    jpgFiles = glob.glob(os.path.join(args.inputPath,'*.jpg'))
     for f in  jpgFiles:
         image=misc.imread(f)
         img=misc.imresize(image,args.outputsize)
-        label=createGaussianLabel(f.replace(".jpg",".json"),args.outputsize,image.shape,args.GaussianSize)
+        label=createGaussianLabel(f.replace(".jpg",".json"),args.outputsize,image.shape,args.GaussianSize,args.labelIdStartatZero)
         if args.augmentation:
             images,labels=dataAugmentation([img],[label])
             for i in range(len(images)):
-                name=args.outputPath+'\\'+(f.replace(".jpg","").split('\\')[-1])+"_"+str(i)
+                name = os.path.join(args.outputPath, os.path.basename(f).replace(".jpg", "_"+str(i)))
                 misc.imsave(name+'.jpg',images[i]) 
                 np.save(name+'.npy',labels[i].astype(np.uint8))
         else:
-            name=args.outputPath+(f.replace(".jpg","").split('\\')[-1])
+            name = os.path.join(args.outputPath, os.path.basename(f).replace(".jpg", ""))
             misc.imsave(name+'.jpg',img) 
             np.save(name+'.npy',label)
 
